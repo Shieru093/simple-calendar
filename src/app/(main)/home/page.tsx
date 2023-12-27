@@ -1,9 +1,9 @@
-import Start from '@/components/page/Start';
+import Home from '@/components/page/Home';
 
 export default function Page() {
 	return (
 		<main>
-			<Start />
+			<Home />
 		</main>
 	);
 }
