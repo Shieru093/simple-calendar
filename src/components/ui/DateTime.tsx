@@ -19,11 +19,11 @@ export function StartPageDateTime() {
 		return () => clearInterval(timer);
 	}, []);
 	return (
-		<div className="flex flex-col py-10 text-center">
-			<time className="text-8xl text-gray-50">
+		<div className="flex flex-col text-center">
+			<time className="text-[min(24vw,160px)] text-gray-50">
 				{now.getHours().toString()}:{now.getMinutes().toString().padStart(2, '0')}
 			</time>
-			<time className="py-2 text-3xl text-gray-50">
+			<time className="text-[min(8vw,50px)] text-gray-50">
 				{now.getMonth()}/{now.getDate()}({dayNames[now.getDay()]})
 			</time>
 		</div>
