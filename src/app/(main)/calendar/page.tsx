@@ -1,3 +1,9 @@
+import Calendar from '@/components/page/Calendar';
+
 export default function Page() {
-	return <main>カレンダー</main>;
+	return (
+		<main>
+			<Calendar />
+		</main>
+	);
 }

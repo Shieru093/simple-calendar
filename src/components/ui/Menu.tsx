@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { pagePath } from '@/const/path';
+import { pagePath } from '@/const/dict';
 
 export default function Menu({ name }: { name: string }) {
 	return (
