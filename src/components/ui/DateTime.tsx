@@ -17,7 +17,7 @@ export function StartPageDateTime() {
 				{now.getHours().toString()}:{now.getMinutes().toString().padStart(2, '0')}
 			</time>
 			<time className="text-[min(8vw,50px)] text-gray-50">
-				{now.getMonth()}/{now.getDate()}({weekDayChars[now.getDay()]})
+				{now.getMonth() + 1}/{now.getDate()}({weekDayChars[now.getDay()]})
 			</time>
 		</div>
 	);
