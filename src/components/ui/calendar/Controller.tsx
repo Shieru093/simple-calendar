@@ -1,30 +1,20 @@
 'use client';
 
+import { CalendarAction } from '@/lib/calendar/types';
+import ControlButton from '@/components/ui/calendar/ControlButton';
+
 export default function CalendarController({ action }: { action: Function }) {
+	const actions: CalendarAction[] = [{ type: 'prev' }, { type: 'reset' }, { type: 'next' }];
+
 	return (
 		<div className="flex justify-around py-2 text-gray-50">
-			<button
-				className=""
-				onClick={() => {
-					action({ type: 'prev' });
-				}}
-			>
-				prev
-			</button>
-			<button
-				onClick={() => {
-					action({ type: 'reset' });
-				}}
-			>
-				reset
-			</button>
-			<button
-				onClick={() => {
-					action({ type: 'next' });
-				}}
-			>
-				next
-			</button>
+			{actions.map((acType, index) => (
+				<ControlButton
+					key={index}
+					action={action}
+					actionType={acType}
+				/>
+			))}
 		</div>
 	);
 }

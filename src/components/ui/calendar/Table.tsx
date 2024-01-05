@@ -9,7 +9,6 @@ export default function CalendarTable({ date }: CalendarState) {
 	const [weekStarts, setWeekStarts] = useState<Date[]>([]);
 
 	useEffect(() => {
-		console.log('log:' + date.toDateString());
 		const year = date.getFullYear();
 		const month = date.getMonth();
 		const countDate = new Date(year, month, 1); // 現在の月の１日目
@@ -19,7 +18,7 @@ export default function CalendarTable({ date }: CalendarState) {
 		countDate.setDate(countDate.getDate() - countDate.getDay());
 
 		const newWeekStarts = [];
-		while (countDate < nextMonth || (month === 11 && countDate.getMonth() !== 0)) {
+		while (countDate < nextMonth) {
 			newWeekStarts.push(new Date(countDate));
 			countDate.setDate(countDate.getDate() + weekLength);
 		}

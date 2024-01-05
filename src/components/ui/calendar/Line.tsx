@@ -7,14 +7,14 @@ export default function CalendarLine({ date }: CalendarState) {
 	const [dates, setDates] = useState<Date[]>([]);
 
 	useEffect(() => {
-		const startOfWeek = date ? new Date(date) : new Date();
+		const startOfWeek = new Date(date);
 		startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay());
 
-		const newWeek = [];
-		for (let i = 0; i < weekLength; i++) {
-			newWeek.push(new Date(startOfWeek));
-			startOfWeek.setDate(startOfWeek.getDate() + 1);
-		}
+		const newWeek: Date[] = Array.from({ length: weekLength }, (_, i) => {
+			const day = new Date(startOfWeek);
+			day.setDate(day.getDate() + i);
+			return day;
+		});
 
 		setDates(newWeek);
 	}, [date]);
