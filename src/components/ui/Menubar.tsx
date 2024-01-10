@@ -1,4 +1,4 @@
-import Menu from '@/components/ui/Menu';
+import Menu from '@/components/ui/menu';
 
 const menus = ['Home', 'Calendar', 'Weather', 'Settings'];
 

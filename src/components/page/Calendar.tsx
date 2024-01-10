@@ -1,14 +1,13 @@
 'use client';
 
 import { useReducer } from 'react';
-import CalendarController from '@/components/ui/calendar/Controller';
-import CalendarHeader from '@/components/ui/calendar/Header';
-import CalendarTable from '@/components/ui/calendar/Table';
+import CalendarController from '@/components/ui/calendar/controller';
+import CalendarHeader from '@/components/ui/calendar/header';
+import CalendarTable from '@/components/ui/calendar/table';
 import { initialCalendarState } from '@/lib/calendar/actions';
-import { CalendarAction, CalendarState } from '@/lib/calendar/types';
+import type { CalendarAction, CalendarState } from '@/lib/calendar/types';
 
 const reducer = (state: CalendarState, action: CalendarAction): CalendarState => {
-	console.log(state.date.toDateString());
 	if (action.type === 'prev') {
 		const prevWeek = new Date(state.date.getFullYear(), state.date.getMonth() - 1, 1);
 		return { date: prevWeek };

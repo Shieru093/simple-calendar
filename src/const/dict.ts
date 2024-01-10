@@ -1,4 +1,4 @@
-export const pagePath: { [key: string]: string } = {
+export const pagePaths: { [key: string]: string } = {
 	Top: '/',
 	Home: '/home',
 	Calendar: '/calendar',

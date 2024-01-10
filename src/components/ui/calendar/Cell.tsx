@@ -3,7 +3,7 @@
 import { CalendarState } from '@/lib/calendar/types';
 import clsx from 'clsx';
 
-export default function CalendarCell({ date }: CalendarState) {
+export default function CalendarCell({ date, holiday, schedule }: CalendarState) {
 	return (
 		<div className="border pt-1 pb-8">
 			<div

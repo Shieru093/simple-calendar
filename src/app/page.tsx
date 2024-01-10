@@ -1,4 +1,4 @@
-import Start from '@/components/page/Start';
+import Start from '@/components/page/start';
 
 export default function Page() {
 	return (

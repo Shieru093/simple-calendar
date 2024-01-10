@@ -1,15 +1,15 @@
 'use client';
 
-import { useReducer } from 'react';
-import CalendarController from '@/components/ui/calendar/Controller';
-import CalendarHeader from '@/components/ui/calendar/Header';
-import CalendarLine from '@/components/ui/calendar/Line';
+import { useReducer, Suspense } from 'react';
+import CalendarController from '@/components/ui/calendar/controller';
+import CalendarHeader from '@/components/ui/calendar/header';
+import CalendarLine from '@/components/ui/calendar/line';
 import { weekLength } from '@/const/dict';
 import { CalendarAction, CalendarState } from '@/lib/calendar/types';
 import { initialCalendarState } from '@/lib/calendar/actions';
+import { CalendarLineSkeleton } from '../skeletons';
 
 const reducer = (state: CalendarState, action: CalendarAction): CalendarState => {
-	console.log(state.date.toDateString());
 	if (action.type === 'prev') {
 		const prevWeek = new Date(state.date);
 		prevWeek.setDate(state.date.getDate() - weekLength);
@@ -31,7 +31,9 @@ export default function HomePageCalendar() {
 	return (
 		<div>
 			<CalendarHeader date={state.date} />
-			<CalendarLine date={state.date} />
+			<Suspense fallback={<CalendarLineSkeleton />}>
+				<CalendarLine date={state.date} />
+			</Suspense>
 			<CalendarController action={dispatch} />
 		</div>
 	);

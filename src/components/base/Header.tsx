@@ -1,4 +1,4 @@
-import Menubar from '@/components/ui/Menubar';
+import Menubar from '@/components/ui/menubar';
 
 export default function Header() {
 	return (

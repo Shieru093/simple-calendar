@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import HomePageCalendar from '@/components/ui/calendar/HomePageCalendar';
+import HomePageCalendar from '@/components/ui/calendar/home-page-calendar';
 
 export default function Home() {
 	return (

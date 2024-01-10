@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import CalendarCell from '@/components/ui/calendar/Cell';
+import CalendarCell from '@/components/ui/calendar/cell';
 import { CalendarState } from '@/lib/calendar/types';
 import { weekLength } from '@/const/dict';
 

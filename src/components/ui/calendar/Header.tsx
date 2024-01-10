@@ -1,5 +1,5 @@
 import { CalendarState } from '@/lib/calendar/types';
-import WeekDayLabel from '@/components/ui/calendar/WeekDayLabel';
+import WeekDayLabel from '@/components/ui/calendar/week-day-label';
 import { weekLength } from '@/const/dict';
 
 export default function CalendarHeader({ date }: CalendarState) {

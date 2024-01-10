@@ -1,4 +1,4 @@
-import Header from '@/components/base/Header';
+import Header from '@/components/base/header';
 export default function Layout({ children }: { children: React.ReactNode }) {
 	return (
 		<div className="bg-gradient-to-bl from-gray-900 min-h-screen to-slate-700">
