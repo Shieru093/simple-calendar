@@ -2,7 +2,7 @@ import { CalendarState } from '@/lib/calendar/types';
 import WeekDayLabel from '@/components/ui/calendar/week-day-label';
 import { weekLength } from '@/const/dict';
 
-export default function CalendarHeader({ date }: CalendarState) {
+export default function CalendarHeader({ date }: { date: Date }) {
 	return (
 		<div>
 			<div className="py-3 text-2xl text-center text-gray-50">

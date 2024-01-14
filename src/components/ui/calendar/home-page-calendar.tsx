@@ -1,40 +1,32 @@
 'use client';
 
-import { useReducer, Suspense } from 'react';
+import { useReducer, Suspense, createContext, useEffect } from 'react';
 import CalendarController from '@/components/ui/calendar/controller';
 import CalendarHeader from '@/components/ui/calendar/header';
 import CalendarLine from '@/components/ui/calendar/line';
 import { weekLength } from '@/const/dict';
-import { CalendarAction, CalendarState } from '@/lib/calendar/types';
-import { initialCalendarState } from '@/lib/calendar/actions';
+import { ActionType, CalendarAction, CalendarState } from '@/lib/calendar/types';
+import { initialCalendarState } from '@/lib/calendar/utils';
 import { CalendarLineSkeleton } from '../skeletons';
-
-const reducer = (state: CalendarState, action: CalendarAction): CalendarState => {
-	if (action.type === 'prev') {
-		const prevWeek = new Date(state.date);
-		prevWeek.setDate(state.date.getDate() - weekLength);
-		return { date: prevWeek };
-	} else if (action.type === 'next') {
-		const nextWeek = new Date(state.date);
-		nextWeek.setDate(state.date.getDate() + weekLength);
-		return { date: nextWeek };
-	} else if (action.type === 'reset') {
-		return initialCalendarState;
-	} else {
-		return state;
-	}
-};
+import { useCalendarState } from '@/lib/hooks/useCalendarState';
 
 export default function HomePageCalendar() {
-	const [state, dispatch] = useReducer(reducer, initialCalendarState);
+	const [recentCalendar, currentDate, actions] = useCalendarState(new Date());
+	const actionType: ActionType = { type: 'week' };
 
 	return (
 		<div>
-			<CalendarHeader date={state.date} />
+			<CalendarHeader date={currentDate} />
 			<Suspense fallback={<CalendarLineSkeleton />}>
-				<CalendarLine date={state.date} />
+				<CalendarLine
+					calendarData={recentCalendar}
+					currentDate={currentDate}
+				/>
 			</Suspense>
-			<CalendarController action={dispatch} />
+			<CalendarController
+				actions={actions}
+				actionType={actionType}
+			/>
 		</div>
 	);
 }

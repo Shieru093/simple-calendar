@@ -1,16 +1,16 @@
-import { CalendarAction } from '@/lib/calendar/types';
+import { ActionType, CalendarAction } from '@/lib/calendar/types';
 
 export default function ControlButton({
 	action,
 	actionType,
 }: {
-	action: Function;
-	actionType: CalendarAction;
+	action: (acType: ActionType) => void;
+	actionType: ActionType;
 }) {
 	return (
 		<button
 			onClick={() => {
-				action({ type: actionType.type });
+				action(actionType);
 			}}
 		>
 			{actionType.type}

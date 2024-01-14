@@ -5,12 +5,18 @@ import CalendarLine from '@/components/ui/calendar/line';
 import { weekLength } from '@/const/dict';
 import { CalendarState } from '@/lib/calendar/types';
 
-export default function CalendarTable({ date }: CalendarState) {
+export default function CalendarTable({
+	calendarData,
+	currentDate,
+}: {
+	calendarData: CalendarState[];
+	currentDate: Date;
+}) {
 	const [weekStarts, setWeekStarts] = useState<Date[]>([]);
 
 	useEffect(() => {
-		const year = date.getFullYear();
-		const month = date.getMonth();
+		const year = currentDate.getFullYear();
+		const month = currentDate.getMonth();
 		const countDate = new Date(year, month, 1); // 現在の月の１日目
 		const nextMonth = new Date(year, month + 1, 1); // 次の月の１日目
 
@@ -24,7 +30,7 @@ export default function CalendarTable({ date }: CalendarState) {
 		}
 
 		setWeekStarts(newWeekStarts);
-	}, [date]);
+	}, [currentDate]);
 
 	return (
 		<div>
@@ -33,7 +39,8 @@ export default function CalendarTable({ date }: CalendarState) {
 					return (
 						<CalendarLine
 							key={`${weekStart.toString()}-${index}`}
-							date={weekStart}
+							calendarData={calendarData}
+							currentDate={weekStart}
 						/>
 					);
 				})}
