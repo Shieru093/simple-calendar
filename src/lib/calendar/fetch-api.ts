@@ -23,14 +23,33 @@ export async function fetchJapaneseHoliday(year: number, month: number): Promise
 		const catchHolidays: CatchHoliday[] = await res.json();
 		console.log(catchHolidays);
 
-		const holidays: Holiday[] = [];
-		catchHolidays.forEach((catchHoliday) => {
-			holidays.push({
-				date: new Date(catchHoliday.date),
-				name: catchHoliday.name,
-				type: catchHoliday.type,
-			});
-		});
+		const holidays: Holiday[] = catchHolidays.map((catchHoliday) => ({
+			date: new Date(catchHoliday.date),
+			name: catchHoliday.name,
+			type: catchHoliday.type,
+		}));
+		return holidays;
+	} catch (error) {
+		console.error('接続エラー:', error);
+		throw error;
+	}
+}
+
+export async function fetchRecentJapaneseHoliday(): Promise<Holiday[]> {
+	try {
+		const res = await fetch('http://api.national-holidays.jp/recent');
+		console.log(res.status);
+		if (!res.ok) {
+			throw new Error('HTTP error, status = ' + res.status);
+		}
+		const catchHolidays: CatchHoliday[] = await res.json();
+		console.log(catchHolidays);
+
+		const holidays: Holiday[] = catchHolidays.map((catchHoliday) => ({
+			date: new Date(catchHoliday.date),
+			name: catchHoliday.name,
+			type: catchHoliday.type,
+		}));
 		return holidays;
 	} catch (error) {
 		console.error('接続エラー:', error);

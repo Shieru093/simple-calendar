@@ -1,36 +1,35 @@
 import { useState, useEffect } from 'react';
 import CalendarCell from '@/components/ui/calendar/cell';
-import type { CalendarState } from '@/lib/calendar/types';
+import type { CalendarState, Holiday } from '@/lib/calendar/types';
 import { weekLength } from '@/const/dict';
 
 export default function CalendarLine({
-	calendarData,
-	currentDate,
+	dateState,
+	holidays,
 }: {
-	calendarData: CalendarState[];
-	currentDate: Date;
+	dateState: Date;
+	holidays: Holiday[];
 }) {
 	const [weekData, setWeekData] = useState<CalendarState[]>([]);
 
 	useEffect(() => {
-		const startOfWeek = new Date(currentDate);
+		const startOfWeek = new Date(dateState);
 		startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay());
 
 		const newWeekData: CalendarState[] = Array.from({ length: weekLength }, (_, i) => {
 			const day = new Date(startOfWeek);
 			day.setDate(day.getDate() + i);
-			return (
-				calendarData.find(
-					(data) =>
-						data.date.getFullYear() === day.getFullYear() &&
-						data.date.getMonth() === day.getMonth() &&
-						data.date.getDate() === day.getDate()
-				) || { date: new Date(day) }
+			const holiday = holidays.find(
+				(data) =>
+					data.date.getFullYear() === day.getFullYear() &&
+					data.date.getMonth() === day.getMonth() &&
+					data.date.getDate() === day.getDate()
 			);
+			return { date: day, holiday: holiday } || { date: day };
 		});
 
 		setWeekData(newWeekData);
-	}, [currentDate]);
+	}, [dateState, holidays]);
 
 	return (
 		<div className="grid grid-cols-7">

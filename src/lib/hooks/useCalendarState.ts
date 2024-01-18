@@ -64,7 +64,6 @@ export const useCalendarState = (
 
 		// 下のコメントで依存関係のwarningを表示しなくする
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		// text
 	}, [currentDay]);
 
 	const prev = (actionType: ActionType) => {

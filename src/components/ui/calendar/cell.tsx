@@ -1,9 +1,12 @@
 'use client';
 
-import { CalendarState } from '@/lib/calendar/types';
+import type { CalendarState } from '@/lib/calendar/types';
 import clsx from 'clsx';
 
 export default function CalendarCell({ dateData }: { dateData: CalendarState }) {
+	if (dateData.holiday) {
+		console.log('call');
+	}
 	return (
 		<div className="border pt-1 pb-8 px-5">
 			<div

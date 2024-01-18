@@ -3,20 +3,21 @@
 import { useEffect, useState } from 'react';
 import CalendarLine from '@/components/ui/calendar/line';
 import { weekLength } from '@/const/dict';
-import { CalendarState } from '@/lib/calendar/types';
+import type { CalendarState, Holiday } from '@/lib/calendar/types';
 
 export default function CalendarTable({
-	calendarData,
-	currentDate,
+	dateState,
+	holidays,
 }: {
-	calendarData: CalendarState[];
-	currentDate: Date;
+	dateState: Date;
+	holidays: Holiday[];
 }) {
 	const [weekStarts, setWeekStarts] = useState<Date[]>([]);
 
 	useEffect(() => {
-		const year = currentDate.getFullYear();
-		const month = currentDate.getMonth();
+		console.log(holidays.length);
+		const year = dateState.getFullYear();
+		const month = dateState.getMonth();
 		const countDate = new Date(year, month, 1); // 現在の月の１日目
 		const nextMonth = new Date(year, month + 1, 1); // 次の月の１日目
 
@@ -29,8 +30,14 @@ export default function CalendarTable({
 			countDate.setDate(countDate.getDate() + weekLength);
 		}
 
+		// const newWeekStarts = Array.from({ length: 6 }).map((_, i) => {
+		// 	const newDate = new Date(countDate);
+		// 	countDate.setDate(countDate.getDate() + weekLength);
+		// 	return newDate;
+		// });
+
 		setWeekStarts(newWeekStarts);
-	}, [currentDate]);
+	}, [dateState]);
 
 	return (
 		<div>
@@ -39,8 +46,8 @@ export default function CalendarTable({
 					return (
 						<CalendarLine
 							key={`${weekStart.toString()}-${index}`}
-							calendarData={calendarData}
-							currentDate={weekStart}
+							dateState={weekStart}
+							holidays={holidays}
 						/>
 					);
 				})}

@@ -1,13 +1,10 @@
+export type WeekOrMonth = 'week' | 'month';
+export type PrevOrNext = 'prev' | 'next';
+
 export type CalendarState = {
 	date: Date;
 	holiday?: Holiday;
 	schedule?: Schedule[] | Schedule;
-};
-
-export type CalendarAction = {
-	state: Date;
-	setState: (date: Date) => void;
-	actionType: ActionType;
 };
 
 export type CatchHoliday = {
@@ -25,8 +22,4 @@ export type Holiday = {
 export type Schedule = {
 	date: Date;
 	name: string;
-};
-
-export type ActionType = {
-	type: 'month' | 'week';
 };
