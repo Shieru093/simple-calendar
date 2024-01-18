@@ -6,7 +6,7 @@ export async function fetchJapaneseHoliday(year: number, month: number): Promise
 		const reqYear = reqDate.getFullYear();
 		const reqMonth = reqDate.getMonth() + 1;
 		const res = await fetch(
-			`http://api.national-holidays.jp/${reqYear.toString()}/${reqMonth
+			`https://api.national-holidays.jp/${reqYear.toString()}/${reqMonth
 				.toString()
 				.padStart(2, '0')}`
 		);
@@ -37,7 +37,7 @@ export async function fetchJapaneseHoliday(year: number, month: number): Promise
 
 export async function fetchRecentJapaneseHoliday(): Promise<Holiday[]> {
 	try {
-		const res = await fetch('http://api.national-holidays.jp/recent');
+		const res = await fetch('https://api.national-holidays.jp/recent');
 		console.log(res.status);
 		if (!res.ok) {
 			throw new Error('HTTP error, status = ' + res.status);

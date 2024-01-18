@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import CalendarLine from '@/components/ui/calendar/line';
 import { weekLength } from '@/const/dict';
-import type { CalendarState, Holiday } from '@/lib/calendar/types';
+import type { Holiday } from '@/lib/calendar/types';
 
 export default function CalendarTable({
 	dateState,
