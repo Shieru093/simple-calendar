@@ -28,5 +28,12 @@ export function ToggleButton({
 		setDateState(newDateState);
 	};
 
-	return <button onClick={handleClick}>{prevOrNext}</button>;
+	return (
+		<button
+			onClick={handleClick}
+			className="bg-orange-500 border-2 border-orange-400 px-3 rounded-md text-gray-50"
+		>
+			{prevOrNext}
+		</button>
+	);
 }

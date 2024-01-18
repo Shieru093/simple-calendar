@@ -1,44 +1,37 @@
 'use client';
 
-import { Suspense, useEffect, useState } from 'react';
-import CalendarHeader from '@/components/ui/calendar/header';
+import { use, useEffect, useState } from 'react';
 import CalendarLine from '@/components/ui/calendar/line';
+import { fetchRecentJapaneseHoliday } from '@/lib/calendar/fetch-api';
 import { Holiday } from '@/lib/calendar/types';
 import { CalendarLineSkeleton } from '../skeletons';
-import { fetchRecentJapaneseHoliday } from '@/lib/calendar/fetch-api';
 
-export default function HomePageCalendar() {
+export default function HomePageCalendar({ dateState }: { dateState: Date }) {
+	// const holidays = use(fetchRecentJapaneseHoliday());
+
 	const [holidays, setHolidays] = useState<Holiday[]>([]);
-	const [dateState, setDateState] = useState<Date>(new Date());
-	const [isLoading, setIsLoading] = useState(true); // ローディング状態の追跡
+	const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
 	useEffect(() => {
-		const initialState = async () => {
-			setIsLoading(true); // データ取得前にローディング状態をtrueに
-			const recentHoliday = await fetchRecentJapaneseHoliday();
-			setHolidays(recentHoliday);
-			setIsLoading(false); // データ取得後にローディング状態をfalseに
-		};
-		initialState();
+		async function fetchHolidays() {
+			const holidaysData = await fetchRecentJapaneseHoliday();
+			setIsLoaded(false);
+			setHolidays(holidaysData);
+			setIsLoaded(true);
+		}
+		fetchHolidays();
 	}, []);
 
-	// ローディング中はローディング表示またはnullを返す
-	if (isLoading) {
-		return <div>Loading...</div>; // ここはお好みでカスタマイズしてください
+	if (!isLoaded) {
+		return <CalendarLineSkeleton />;
 	}
+
 	return (
 		<div>
-			<CalendarHeader
+			<CalendarLine
 				dateState={dateState}
-				setDateState={setDateState}
-				weekOrMonth="month"
+				holidays={holidays}
 			/>
-			<Suspense fallback={<CalendarLineSkeleton />}>
-				<CalendarLine
-					dateState={dateState}
-					holidays={holidays}
-				/>
-			</Suspense>
 		</div>
 	);
 }

@@ -1,8 +1,5 @@
 import { weekLength } from '@/const/dict';
 
-const shimmer =
-	'before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-white/60 before:to-transparent';
-
 export function CalendarCellSkeleton() {
 	return (
 		<div className="border pt-1 pb-8">
@@ -24,11 +21,9 @@ export function CalendarLineSkeleton() {
 export function CalendarTableSkeleton() {
 	return (
 		<div>
-			<div>
-				{Array.from({ length: 5 }).map((_, index) => {
-					return <CalendarLineSkeleton key={index} />;
-				})}
-			</div>
+			{Array.from({ length: 5 }).map((_, index) => {
+				return <CalendarLineSkeleton key={index} />;
+			})}
 		</div>
 	);
 }

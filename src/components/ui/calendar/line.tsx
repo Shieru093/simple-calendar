@@ -1,7 +1,10 @@
-import { useState, useEffect } from 'react';
+'use client';
+
+import { useState, useEffect, use } from 'react';
 import CalendarCell from '@/components/ui/calendar/cell';
 import type { CalendarState, Holiday } from '@/lib/calendar/types';
 import { weekLength } from '@/const/dict';
+import { fetchRecentJapaneseHoliday } from '@/lib/calendar/fetch-api';
 
 export default function CalendarLine({
 	dateState,
@@ -11,6 +14,8 @@ export default function CalendarLine({
 	holidays: Holiday[];
 }) {
 	const [weekData, setWeekData] = useState<CalendarState[]>([]);
+
+	// holidays = holidays ?? use(fetchRecentJapaneseHoliday());
 
 	useEffect(() => {
 		const startOfWeek = new Date(dateState);

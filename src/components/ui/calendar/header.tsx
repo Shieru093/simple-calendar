@@ -19,7 +19,7 @@ export default function CalendarHeader({
 			<div className="py-3 text-2xl text-center text-gray-50">
 				{dateState.getFullYear()} / {dateState.getMonth() + 1}
 			</div>
-			<div className="flex justify-around text-gray-50">
+			<div className="flex justify-around">
 				{toggles.map((toggle, index) => (
 					<ToggleButton
 						key={index}

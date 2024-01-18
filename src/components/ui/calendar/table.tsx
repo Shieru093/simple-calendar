@@ -15,7 +15,6 @@ export default function CalendarTable({
 	const [weekStarts, setWeekStarts] = useState<Date[]>([]);
 
 	useEffect(() => {
-		console.log(holidays.length);
 		const year = dateState.getFullYear();
 		const month = dateState.getMonth();
 		const countDate = new Date(year, month, 1); // 現在の月の１日目
@@ -30,14 +29,8 @@ export default function CalendarTable({
 			countDate.setDate(countDate.getDate() + weekLength);
 		}
 
-		// const newWeekStarts = Array.from({ length: 6 }).map((_, i) => {
-		// 	const newDate = new Date(countDate);
-		// 	countDate.setDate(countDate.getDate() + weekLength);
-		// 	return newDate;
-		// });
-
 		setWeekStarts(newWeekStarts);
-	}, [dateState]);
+	}, [dateState, holidays]);
 
 	return (
 		<div>

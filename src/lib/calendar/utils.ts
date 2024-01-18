@@ -1,4 +1,3 @@
-import { fetchJapaneseHoliday } from '@/lib/calendar/fetch-api';
 import type { CalendarState, Holiday } from '@/lib/calendar/types';
 
 /**
@@ -7,23 +6,23 @@ import type { CalendarState, Holiday } from '@/lib/calendar/types';
  * @param month
  * @returns CalendarState型配列
  */
-export const createMonthArray = async (year: number, month: number): Promise<CalendarState[]> => {
-	const monthLength = new Date(year, month + 1, 0).getDate(); // 月の日数を取得
-	const monthArray: CalendarState[] = Array.from({ length: monthLength }, (_, day) => {
-		return {
-			date: new Date(year, month, day + 1), // 0からのカウントなので+1する
-		};
-	});
+// export const createMonthArray = async (year: number, month: number): Promise<CalendarState[]> => {
+// 	const monthLength = new Date(year, month + 1, 0).getDate(); // 月の日数を取得
+// 	const monthArray: CalendarState[] = Array.from({ length: monthLength }, (_, day) => {
+// 		return {
+// 			date: new Date(year, month, day + 1), // 0からのカウントなので+1する
+// 		};
+// 	});
 
-	const holidays: Holiday[] = await fetchJapaneseHoliday(year, month);
-	holidays.forEach((holiday) => {
-		const matchDate = monthArray.find((dayState) => {
-			return dayState.date.getDate() === holiday.date.getDate();
-		});
-		if (matchDate) {
-			matchDate.holiday = holiday;
-		}
-	});
+// 	const holidays: Holiday[] = await fetchJapaneseHoliday(year, month);
+// 	holidays.forEach((holiday) => {
+// 		const matchDate = monthArray.find((dayState) => {
+// 			return dayState.date.getDate() === holiday.date.getDate();
+// 		});
+// 		if (matchDate) {
+// 			matchDate.holiday = holiday;
+// 		}
+// 	});
 
-	return monthArray;
-};
+// 	return monthArray;
+// };

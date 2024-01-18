@@ -1,13 +1,23 @@
-import { Suspense } from 'react';
+'use client';
+
+import { Suspense, useState } from 'react';
+import CalendarHeader from '@/components/ui/calendar/header';
+import CalendarPageCalendar from '@/components/ui/calendar/calendar-page-calendar';
 import { CalendarTableSkeleton } from '@/components/ui/skeletons';
-import CalendarPageCalendar from '../ui/calendar/calendar-page-calendar';
 
 export default function Calendar() {
+	const [dateState, setDateState] = useState<Date>(new Date());
+
 	return (
 		<div>
-			{/* <Suspense fallback={<CalendarTableSkeleton />}> */}
-			<CalendarPageCalendar />
-			{/* </Suspense> */}
+			<CalendarHeader
+				dateState={dateState}
+				setDateState={setDateState}
+				weekOrMonth="month"
+			/>
+			<Suspense fallback={<CalendarTableSkeleton />}>
+				<CalendarPageCalendar dateState={dateState} />
+			</Suspense>
 		</div>
 	);
 }
