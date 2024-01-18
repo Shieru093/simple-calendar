@@ -1,22 +1,6 @@
 import { fetchJapaneseHoliday } from '@/lib/calendar/fetch-api';
 import type { CalendarState, Holiday } from '@/lib/calendar/types';
 
-export async function initialCalendarState(): Promise<CalendarState[][]> {
-	const today = new Date();
-	const prevMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1);
-	const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1);
-
-	// それぞれの月のデータを非同期で並行して取得
-	const [prevMonthArray, nowMonthArray, nextMonthArray] = await Promise.all([
-		createMonthArray(prevMonth.getFullYear(), prevMonth.getMonth()),
-		createMonthArray(today.getFullYear(), today.getMonth()),
-		createMonthArray(nextMonth.getFullYear(), nextMonth.getMonth()),
-	]);
-
-	// 結果を結合して返す
-	return [prevMonthArray, nowMonthArray, nextMonthArray];
-}
-
 /**
  * 一月分のカレンダーの情報を返す関数
  * @param year
