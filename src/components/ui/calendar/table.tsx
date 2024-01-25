@@ -3,14 +3,16 @@
 import { useEffect, useState } from 'react';
 import CalendarLine from '@/components/ui/calendar/line';
 import { weekLength } from '@/const/dict';
-import type { Holiday } from '@/lib/calendar/types';
+import type { Holiday, Schedule } from '@/lib/calendar/types';
 
 export default function CalendarTable({
 	dateState,
 	holidays,
+	schedules,
 }: {
 	dateState: Date;
 	holidays: Holiday[];
+	schedules: Schedule[];
 }) {
 	const [weekStarts, setWeekStarts] = useState<Date[]>([]);
 
@@ -41,6 +43,7 @@ export default function CalendarTable({
 							key={`${weekStart.toString()}-${index}`}
 							dateState={weekStart}
 							holidays={holidays}
+							schedules={schedules}
 						/>
 					);
 				})}

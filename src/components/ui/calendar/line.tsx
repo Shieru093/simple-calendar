@@ -2,16 +2,18 @@
 
 import { useState, useEffect, use } from 'react';
 import CalendarCell from '@/components/ui/calendar/cell';
-import type { CalendarState, Holiday } from '@/lib/calendar/types';
+import type { CalendarState, Holiday, Schedule } from '@/lib/calendar/types';
 import { weekLength } from '@/const/dict';
 import { fetchRecentJapaneseHoliday } from '@/lib/calendar/fetch-api';
 
 export default function CalendarLine({
 	dateState,
 	holidays,
+	schedules,
 }: {
 	dateState: Date;
 	holidays: Holiday[];
+	schedules: Schedule[];
 }) {
 	const [weekData, setWeekData] = useState<CalendarState[]>([]);
 
@@ -30,11 +32,17 @@ export default function CalendarLine({
 					data.date.getMonth() === day.getMonth() &&
 					data.date.getDate() === day.getDate()
 			);
-			return { date: day, holiday: holiday } || { date: day };
+			const schedule = schedules.filter(
+				(data) =>
+					data.eventDate.getFullYear() === day.getFullYear() &&
+					data.eventDate.getMonth() === day.getMonth() &&
+					data.eventDate.getDate() === day.getDate()
+			);
+			return { date: day, holiday: holiday, schedule: schedule };
 		});
 
 		setWeekData(newWeekData);
-	}, [dateState, holidays]);
+	}, [dateState, holidays, schedules]);
 
 	return (
 		<div className="grid grid-cols-7">

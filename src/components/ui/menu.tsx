@@ -1,13 +1,12 @@
 import Link from 'next/link';
-import { pagePaths } from '@/const/dict';
 
-export default function Menu({ name }: { name: string }) {
+export default function Menu({ href, text }: { href: string; text: string }) {
 	return (
 		<Link
-			className="pt-3 px-5 text-gray-50 text-[min(4vw,30px)]"
-			href={pagePaths[name]}
+			className="pt-3 text-gray-50 text-[min(4vw,30px)] hover:bg-gray-600"
+			href={href}
 		>
-			{name}
+			{text}
 		</Link>
 	);
 }

@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { StartPageDateTime } from '@/components/ui/date-time';
-import { pagePaths } from '@/const/dict';
 
 export default function Start() {
 	return (
@@ -8,7 +7,7 @@ export default function Start() {
 			<h1 className="text-[min(8vw,50px)] text-gray-50">シンプルカレンダー</h1>
 			<StartPageDateTime />
 			<Link
-				href={pagePaths['Home']}
+				href={'/home'}
 				className="bg-blue-700 px-3 py-1 rounded-xl shadow-xl text-[min(6vw,40px)] text-gray-50 hover:bg-blue-500"
 			>
 				スタート
