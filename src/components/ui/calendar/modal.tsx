@@ -1,8 +1,9 @@
 import { useContext } from 'react';
-import { ModalContext } from './calendar-page-calendar';
+import { ModalContext } from '@/components/page/calendar';
 
 export const Modal = ({ children }: { children: React.ReactNode }) => {
 	const setModalParam = useContext(ModalContext);
+	console.log('modal');
 	return (
 		<div
 			onClick={() => setModalParam(undefined)}

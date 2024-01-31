@@ -1,19 +1,21 @@
 'use client';
 
-import type { CalendarState } from '@/lib/calendar/types';
 import clsx from 'clsx';
 import { useContext } from 'react';
-import { ModalContext } from './calendar-page-calendar';
+import { ModalContext } from '@/components/page/calendar';
+import type { CalendarState, Schedule } from '@/lib/calendar/types';
 
 export default function CalendarCell({ dateData }: { dateData: CalendarState }) {
 	const setModalParam = useContext(ModalContext);
-	if (dateData.holiday) {
-		console.log('call');
-	}
+	const schedules: Schedule[] = Array.isArray(dateData.schedule)
+		? dateData.schedule
+		: dateData.schedule
+		? [dateData.schedule]
+		: [];
+
 	return (
-		<button
+		<div
 			onClick={() => {
-				console.log('clicked');
 				setModalParam(dateData.date);
 			}}
 			className="border pt-1 pb-8 px-5"
@@ -27,9 +29,23 @@ export default function CalendarCell({ dateData }: { dateData: CalendarState }) 
 			>
 				{dateData.date.getDate()}
 			</div>
-			<div className="bg-green-600 overflow-hidden px-2 rounded-lg text-[min(2vw,14px)] text-center text-ellipsis text-gray-50 whitespace-nowrap">
+			<div
+				onClick={(e) => {
+					e.stopPropagation();
+					alert(dateData.holiday?.type);
+				}}
+				className="bg-green-600 overflow-hidden px-2 rounded-lg text-[min(2vw,14px)] text-center text-ellipsis text-gray-50 whitespace-nowrap"
+			>
 				{dateData.holiday?.name}
 			</div>
-		</button>
+			{schedules.map((schedule, index) => (
+				<div
+					key={index}
+					className="bg-green-600 overflow-hidden px-2 rounded-lg text-[min(2vw,14px)] text-center text-ellipsis text-gray-50 whitespace-nowrap"
+				>
+					{schedule.eventTitle}
+				</div>
+			))}
+		</div>
 	);
 }

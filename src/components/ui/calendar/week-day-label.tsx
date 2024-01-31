@@ -1,5 +1,5 @@
-import { weekDayChars } from '@/const/dict';
 import clsx from 'clsx';
+import { weekDayChars } from '@/const/dict';
 
 export default function WeekDayLabel({ weekDay }: { weekDay: number }) {
 	return (

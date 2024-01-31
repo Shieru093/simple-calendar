@@ -32,22 +32,20 @@ export default function CalendarTable({
 		}
 
 		setWeekStarts(newWeekStarts);
-	}, [dateState, holidays]);
+	}, [dateState]);
 
 	return (
 		<div>
-			<div>
-				{weekStarts.map((weekStart, index) => {
-					return (
-						<CalendarLine
-							key={`${weekStart.toString()}-${index}`}
-							dateState={weekStart}
-							holidays={holidays}
-							schedules={schedules}
-						/>
-					);
-				})}
-			</div>
+			{weekStarts.map((weekStart, index) => {
+				return (
+					<CalendarLine
+						key={`${weekStart.toString()}-${index}`}
+						dateState={weekStart}
+						holidays={holidays}
+						schedules={schedules}
+					/>
+				);
+			})}
 		</div>
 	);
 }

@@ -1,7 +1,7 @@
-import { PrevOrNext, WeekOrMonth } from '@/lib/calendar/types';
 import WeekDayLabel from '@/components/ui/calendar/week-day-label';
+import { ToggleButton } from '@/components/ui/calendar/buttons';
 import { weekLength } from '@/const/dict';
-import { ToggleButton } from './buttons';
+import type { PrevOrNext, WeekOrMonth } from '@/lib/calendar/types';
 
 export default function CalendarHeader({
 	dateState,

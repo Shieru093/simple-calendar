@@ -2,9 +2,9 @@
 
 import { useState, useEffect, use } from 'react';
 import CalendarCell from '@/components/ui/calendar/cell';
-import type { CalendarState, Holiday, Schedule } from '@/lib/calendar/types';
-import { weekLength } from '@/const/dict';
 import { fetchRecentJapaneseHoliday } from '@/lib/calendar/fetch-api';
+import { weekLength } from '@/const/dict';
+import type { CalendarState, Holiday, Schedule } from '@/lib/calendar/types';
 
 export default function CalendarLine({
 	dateState,
@@ -26,18 +26,23 @@ export default function CalendarLine({
 		const newWeekData: CalendarState[] = Array.from({ length: weekLength }, (_, i) => {
 			const day = new Date(startOfWeek);
 			day.setDate(day.getDate() + i);
-			const holiday = holidays.find(
-				(data) =>
+
+			const holiday = holidays.find((data) => {
+				return (
 					data.date.getFullYear() === day.getFullYear() &&
 					data.date.getMonth() === day.getMonth() &&
 					data.date.getDate() === day.getDate()
-			);
-			const schedule = schedules.filter(
-				(data) =>
+				);
+			});
+
+			const schedule = schedules.filter((data) => {
+				return (
 					data.eventDate.getFullYear() === day.getFullYear() &&
 					data.eventDate.getMonth() === day.getMonth() &&
 					data.eventDate.getDate() === day.getDate()
-			);
+				);
+			});
+
 			return { date: day, holiday: holiday, schedule: schedule };
 		});
 

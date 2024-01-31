@@ -1,7 +1,8 @@
 'use server';
 
+import { redirect } from 'next/navigation';
 import { sql } from '@vercel/postgres';
-import { FormSchemaType, formSchema } from './schema';
+import { type FormSchemaType, formSchema } from '@/lib/calendar/schema';
 
 export async function insertSchedule(formData: FormSchemaType) {
 	// フォームのデータを取出す
@@ -11,8 +12,14 @@ export async function insertSchedule(formData: FormSchemaType) {
 		memo: formData.memo,
 	});
 
-	await sql`
-    INSERT INTO schedules (event_title, event_date, memo)
-    VALUES (${eventTitle}, ${eventDate}, ${memo});
-  `;
+	try {
+		await sql`
+			INSERT INTO schedules (event_title, event_date, memo)
+			VALUES (${eventTitle}, ${eventDate}, ${memo});
+		`;
+	} catch (error) {
+		return { message: error };
+	}
+
+	redirect('/calendar');
 }

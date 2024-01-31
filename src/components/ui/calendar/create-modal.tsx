@@ -1,5 +1,6 @@
-import CreateScheduleForm from './create-schedule-form';
-import { Modal } from './modal';
+import CreateScheduleForm from '@/components/ui/calendar/create-schedule-form';
+import { Modal } from '@/components/ui/calendar/modal';
+
 export function CreateModal({ param }: { param: Date | undefined }) {
 	if (param) {
 		return (
@@ -8,6 +9,6 @@ export function CreateModal({ param }: { param: Date | undefined }) {
 			</Modal>
 		);
 	} else {
-		<></>;
+		return <></>;
 	}
 }

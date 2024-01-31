@@ -1,12 +1,16 @@
 'use client';
 
-import { Suspense, useState } from 'react';
+import { useState, createContext } from 'react';
 import CalendarHeader from '@/components/ui/calendar/header';
 import CalendarPageCalendar from '@/components/ui/calendar/calendar-page-calendar';
-import { CalendarTableSkeleton } from '@/components/ui/skeletons';
+import { AddScheduleButton } from '@/components/ui/calendar/buttons';
+import { CreateModal } from '@/components/ui/calendar/create-modal';
+
+export const ModalContext = createContext<(date: Date | undefined) => void>(() => {});
 
 export default function Calendar() {
 	const [dateState, setDateState] = useState<Date>(new Date());
+	const [modalParam, setModalParam] = useState<Date | undefined>(undefined);
 
 	return (
 		<div>
@@ -15,9 +19,13 @@ export default function Calendar() {
 				setDateState={setDateState}
 				weekOrMonth="month"
 			/>
-			<Suspense fallback={<CalendarTableSkeleton />}>
+			<ModalContext.Provider value={setModalParam}>
 				<CalendarPageCalendar dateState={dateState} />
-			</Suspense>
+				<div className="pt-8 text-center">
+					<AddScheduleButton />
+				</div>
+				<CreateModal param={modalParam} />
+			</ModalContext.Provider>
 		</div>
 	);
 }

@@ -29,3 +29,9 @@ export type Schedule = {
 	eventDate: Date;
 	memo: string;
 };
+
+export type CatchSchedule = {
+	event_title: string;
+	event_date: Date;
+	memo: string;
+};

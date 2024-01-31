@@ -19,6 +19,6 @@ export async function fetchRecentJapaneseHoliday(): Promise<Holiday[]> {
 		return holidays;
 	} catch (error) {
 		console.error('接続エラー:', error);
-		throw error;
+		return [];
 	}
 }

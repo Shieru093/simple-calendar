@@ -1,11 +1,11 @@
 'use client';
 
-import { FormSchemaType, formSchema } from '@/lib/calendar/schema';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useContext } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { ModalContext } from './calendar-page-calendar';
-import { createSchedule } from '@/lib/calendar/actions';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { insertSchedule } from '@/lib/calendar/actions';
+import { ModalContext } from '@/components/page/calendar';
+import { type FormSchemaType, formSchema } from '@/lib/calendar/schema';
 
 const labelStyle = 'pt-3 text-2xl text-left text-gray-50';
 
@@ -29,7 +29,7 @@ export default function CreateScheduleForm({ paramDate }: { paramDate?: Date }) 
 	});
 
 	const onSubmit: SubmitHandler<FormSchemaType> = (data: FormSchemaType) => {
-		createSchedule(data);
+		insertSchedule(data);
 	};
 
 	return (
