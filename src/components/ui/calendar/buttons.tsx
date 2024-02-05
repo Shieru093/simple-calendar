@@ -54,3 +54,17 @@ export function AddScheduleButton() {
 		</button>
 	);
 }
+
+export function ModalCloseButton({ setModalParam }: { setModalParam: Function }) {
+	return (
+		<button
+			type="button"
+			onClick={() => {
+				setModalParam(undefined);
+			}}
+			className="bg-red-600 px-3 rounded-2xl text-gray-50 hover:bg-red-800"
+		>
+			閉じる
+		</button>
+	);
+}

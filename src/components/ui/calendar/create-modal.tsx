@@ -1,12 +1,16 @@
+import { ModalContext } from '@/components/page/calendar';
 import CreateScheduleForm from '@/components/ui/calendar/create-schedule-form';
-import { Modal } from '@/components/ui/calendar/modal';
+import { ModalBase } from '@/components/ui/calendar/modal-base';
+import { useContext } from 'react';
 
 export function CreateModal({ param }: { param: Date | undefined }) {
+	const setParam = useContext(ModalContext);
+
 	if (param) {
 		return (
-			<Modal>
+			<ModalBase setState={setParam}>
 				<CreateScheduleForm paramDate={param} />
-			</Modal>
+			</ModalBase>
 		);
 	} else {
 		return <></>;

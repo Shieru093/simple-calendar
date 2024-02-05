@@ -23,15 +23,17 @@ export type Holiday = {
 	type: string;
 };
 
-/** 予定を管理する型 */
-export type Schedule = {
-	eventTitle: string;
-	eventDate: Date;
+export type CatchSchedule = {
+	id: number;
+	event_title: string;
+	event_date: Date;
 	memo: string;
 };
 
-export type CatchSchedule = {
-	event_title: string;
-	event_date: Date;
+/** 予定を管理する型 */
+export type Schedule = {
+	id: number;
+	eventTitle: string;
+	eventDate: Date;
 	memo: string;
 };

@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { insertSchedule } from '@/lib/calendar/actions';
 import { ModalContext } from '@/components/page/calendar';
 import { type FormSchemaType, formSchema } from '@/lib/calendar/schema';
+import { ModalCloseButton } from './buttons';
 
 const labelStyle = 'pt-3 text-2xl text-left text-gray-50';
 
@@ -29,7 +30,7 @@ export default function CreateScheduleForm({ paramDate }: { paramDate?: Date }) 
 	});
 
 	const onSubmit: SubmitHandler<FormSchemaType> = (data: FormSchemaType) => {
-		insertSchedule(data);
+		const insertResult = insertSchedule(data);
 	};
 
 	return (
@@ -39,15 +40,7 @@ export default function CreateScheduleForm({ paramDate }: { paramDate?: Date }) 
 		>
 			<div className="px-3  grid">
 				<div className="text-right">
-					<button
-						type="button"
-						onClick={() => {
-							setModalParam(undefined);
-						}}
-						className="bg-red-600 px-3 rounded-2xl text-gray-50 hover:bg-red-800"
-					>
-						戻る
-					</button>
+					<ModalCloseButton setModalParam={setModalParam} />
 				</div>
 				<div className="pb-4 pt-2 text-4xl text-white">予定の追加</div>
 				<section className="grid">

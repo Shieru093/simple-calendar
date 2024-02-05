@@ -8,13 +8,14 @@ export async function fetchAllSchedules(): Promise<Schedule[]> {
 	noStore();
 	try {
 		const data = await sql<CatchSchedule>`
-      SELECT event_title, event_date, memo
+      SELECT id, event_title, event_date, memo
       FROM schedules
 			WHERE is_delete = false
     `;
 
 		const catchSchedules = data.rows;
 		const schedules: Schedule[] = catchSchedules.map((catchSchedule) => ({
+			id: catchSchedule.id,
 			eventTitle: catchSchedule.event_title,
 			eventDate: new Date(catchSchedule.event_date), // 日付型に変換
 			memo: catchSchedule.memo,
