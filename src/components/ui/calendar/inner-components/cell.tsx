@@ -4,12 +4,16 @@ import clsx from 'clsx';
 import { useContext, useState } from 'react';
 import { ModalContext } from '@/components/page/calendar';
 import type { CalendarState, Schedule } from '@/lib/calendar/types';
-import { ScheduleDetailModal } from './schedule-detail-modal';
+import { ScheduleDetailModal } from '@/components/ui/calendar/modals/schedule-detail-modal';
+import { DeleteConfirmationModal } from '@/components/ui/calendar/modals/delete-confirmation-model';
 
 export default function CalendarCell({ dateData }: { dateData: CalendarState }) {
 	const nowDate = new Date();
 
 	const [schedule, setSchedule] = useState<Schedule | undefined>(undefined);
+	const [deleteTarget, setDeleteTarget] = useState<Schedule | undefined>(undefined);
+	const [editTarget, setEditTarget] = useState<Schedule | undefined>(undefined);
+
 	const setModalParam = useContext(ModalContext);
 	const schedules: Schedule[] = Array.isArray(dateData.schedule)
 		? dateData.schedule
@@ -60,6 +64,13 @@ export default function CalendarCell({ dateData }: { dateData: CalendarState }) 
 			))}
 			<ScheduleDetailModal
 				schedule={schedule}
+				setSchedule={setSchedule}
+				setDeleteTarget={setDeleteTarget}
+				setEditTarget={setEditTarget}
+			/>
+			<DeleteConfirmationModal
+				deleteTarget={deleteTarget}
+				setDeleteTarget={setDeleteTarget}
 				setSchedule={setSchedule}
 			/>
 		</div>

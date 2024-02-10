@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import CalendarHeader from '@/components/ui/calendar/header';
-import HomePageCalendar from '@/components/ui/calendar/home-page-calendar';
+import CalendarHeader from '@/components/ui/calendar/headers/header';
+import HomePageCalendar from '@/components/ui/calendar/outer-components/home-page-calendar';
 import Overview from '@/components/ui/weather/overview';
 
 export default function Home() {

@@ -62,9 +62,32 @@ export function ModalCloseButton({ setModalParam }: { setModalParam: Function })
 			onClick={() => {
 				setModalParam(undefined);
 			}}
-			className="bg-red-600 px-3 rounded-2xl text-gray-50 hover:bg-red-800"
+			className="bg-gray-600 px-3 rounded-2xl text-gray-50 hover:bg-gray-700"
 		>
 			閉じる
+		</button>
+	);
+}
+
+export function ModelActionButton({
+	action,
+	color,
+	text,
+}: {
+	action: Function;
+	color: string;
+	text: string;
+}) {
+	return (
+		<button
+			type="button"
+			onClick={(e) => {
+				e.stopPropagation();
+				action();
+			}}
+			className={`bg-${color}-700 px-3 py-1 rounded-lg text-gray-50`}
+		>
+			{text}
 		</button>
 	);
 }

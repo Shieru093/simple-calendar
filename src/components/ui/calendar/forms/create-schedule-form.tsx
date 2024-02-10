@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { insertSchedule } from '@/lib/calendar/actions';
 import { ModalContext } from '@/components/page/calendar';
 import { type FormSchemaType, formSchema } from '@/lib/calendar/schema';
-import { ModalCloseButton } from './buttons';
+import { ModalCloseButton } from '../buttons';
 
 const labelStyle = 'pt-3 text-2xl text-left text-gray-50';
 
@@ -30,7 +30,7 @@ export default function CreateScheduleForm({ paramDate }: { paramDate?: Date }) 
 	});
 
 	const onSubmit: SubmitHandler<FormSchemaType> = (data: FormSchemaType) => {
-		const insertResult = insertSchedule(data);
+		insertSchedule(data);
 	};
 
 	return (

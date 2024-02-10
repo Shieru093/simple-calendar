@@ -1,6 +1,6 @@
 import { ModalContext } from '@/components/page/calendar';
-import CreateScheduleForm from '@/components/ui/calendar/create-schedule-form';
-import { ModalBase } from '@/components/ui/calendar/modal-base';
+import CreateScheduleForm from '@/components/ui/calendar/forms/create-schedule-form';
+import { ModalBase } from '@/components/ui/calendar/modals/modal-base';
 import { useContext } from 'react';
 
 export function CreateModal({ param }: { param: Date | undefined }) {

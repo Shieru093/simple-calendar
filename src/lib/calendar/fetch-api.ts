@@ -32,13 +32,10 @@ export async function fetchWeather(city: string): Promise<Weather | undefined> {
 		const res = await fetch(
 			`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`
 		);
-		console.log('aa');
 		if (!res.ok) {
 			throw new Error('HTTP error, status = ' + res.status);
 		}
-		console.log('be');
 		const catchWeather = await res.json();
-		console.log('af');
 
 		const weather: Weather = {
 			main: catchWeather.weather[0].main,

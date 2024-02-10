@@ -23,11 +23,11 @@ export default function Overview() {
 		return <div>loading</div>;
 	}
 	return (
-		<div>
-			<div>{weather?.cityName}</div>
-			<div>{weather?.main}</div>
-			<div>{weather?.temp}</div>
-			<div>{weather?.humidity}</div>
+		<div className="flex flex-col items-center justify-center pt-4 text-gray-50">
+			<div className="">{weather?.cityName}</div>
+			<div className="text-xl">{weather?.main}</div>
+			<div>{weather?.temp}℃</div>
+			<div>{weather?.humidity}%</div>
 		</div>
 	);
 }

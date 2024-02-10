@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, use } from 'react';
-import CalendarCell from '@/components/ui/calendar/cell';
+import CalendarCell from '@/components/ui/calendar/inner-components/cell';
 import { fetchRecentJapaneseHoliday } from '@/lib/calendar/fetch-api';
 import { weekLength } from '@/const/dict';
 import type { CalendarState, Holiday, Schedule } from '@/lib/calendar/types';

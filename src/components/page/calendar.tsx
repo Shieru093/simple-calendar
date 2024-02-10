@@ -1,10 +1,10 @@
 'use client';
 
 import { useState, createContext } from 'react';
-import CalendarHeader from '@/components/ui/calendar/header';
-import CalendarPageCalendar from '@/components/ui/calendar/calendar-page-calendar';
+import CalendarHeader from '@/components/ui/calendar/headers/header';
+import CalendarPageCalendar from '@/components/ui/calendar/outer-components/calendar-page-calendar';
 import { AddScheduleButton } from '@/components/ui/calendar/buttons';
-import { CreateModal } from '@/components/ui/calendar/create-modal';
+import { CreateModal } from '@/components/ui/calendar/modals/create-modal';
 
 export const ModalContext = createContext<(date: Date | undefined) => void>(() => {});
 

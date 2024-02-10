@@ -1,4 +1,4 @@
-import WeekDayLabel from '@/components/ui/calendar/week-day-label';
+import WeekDayLabel from '@/components/ui/calendar/headers/week-day-label';
 import { ToggleButton } from '@/components/ui/calendar/buttons';
 import { weekLength } from '@/const/dict';
 import type { PrevOrNext, WeekOrMonth } from '@/lib/calendar/types';

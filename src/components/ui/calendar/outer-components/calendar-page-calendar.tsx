@@ -1,14 +1,14 @@
 'use client';
 
 import { use, useEffect, useState } from 'react';
-import CalendarLine from '@/components/ui/calendar/line';
-import { CalendarLineSkeleton } from '@/components/ui/skeletons';
+import CalendarTable from '@/components/ui/calendar/inner-components/table';
+import { CalendarTableSkeleton } from '@/components/ui/skeletons';
 import { fetchAllSchedules } from '@/lib/calendar/fetch-data';
 import { fetchRecentJapaneseHoliday } from '@/lib/calendar/fetch-api';
 import type { Holiday, Schedule } from '@/lib/calendar/types';
 
-export default function HomePageCalendar({ dateState }: { dateState: Date }) {
-	// const holidays = use(fetchRecentJapaneseHoliday());
+export default function CalendarPageCalendar({ dateState }: { dateState: Date }) {
+	// const holidays: Holiday[] = use(fetchRecentJapaneseHoliday());
 
 	const [holidays, setHolidays] = useState<Holiday[]>([]);
 	const [schedules, setSchedules] = useState<Schedule[]>([]);
@@ -28,11 +28,11 @@ export default function HomePageCalendar({ dateState }: { dateState: Date }) {
 	}, []);
 
 	if (!isLoaded) {
-		return <CalendarLineSkeleton />;
+		return <CalendarTableSkeleton />;
 	}
 
 	return (
-		<CalendarLine
+		<CalendarTable
 			dateState={dateState}
 			holidays={holidays}
 			schedules={schedules}

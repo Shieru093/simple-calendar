@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import CalendarLine from '@/components/ui/calendar/line';
+import CalendarLine from '@/components/ui/calendar/inner-components/line';
 import { weekLength } from '@/const/dict';
 import type { Holiday, Schedule } from '@/lib/calendar/types';
 
