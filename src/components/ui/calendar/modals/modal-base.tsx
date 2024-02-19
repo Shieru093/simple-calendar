@@ -1,9 +1,9 @@
-export function ModalBase({
+export default function ModalBase<T>({
 	children,
 	setState,
 }: {
 	children: React.ReactNode;
-	setState: Function;
+	setState: (state: T | undefined) => void;
 }) {
 	return (
 		<div

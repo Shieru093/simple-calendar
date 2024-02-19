@@ -1,8 +1,8 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { fetchWeather } from '@/lib/calendar/fetch-api';
 import type { Weather } from '@/lib/weather/types';
-import { useEffect, useState } from 'react';
 
 export default function Overview() {
 	const [weather, setWeather] = useState<Weather>();

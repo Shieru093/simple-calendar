@@ -1,7 +1,6 @@
 'use client';
 
-import { ModalContext } from '@/components/page/calendar';
-import { useContext } from 'react';
+import clsx from 'clsx';
 import { weekLength } from '@/const/dict';
 import type { PrevOrNext, WeekOrMonth } from '@/lib/calendar/types';
 
@@ -33,20 +32,22 @@ export function ToggleButton({
 	return (
 		<button
 			onClick={handleClick}
-			className="bg-orange-500 border-2 border-orange-400 px-3 rounded-md text-gray-50"
+			className="bg-orange-500 border-2 border-orange-400 px-3 rounded-md text-gray-50 hover:bg-orange-600 hover:border-orange-500"
 		>
 			{prevOrNext}
 		</button>
 	);
 }
 
-export function AddScheduleButton() {
-	const setModalParam = useContext(ModalContext);
-
+export function AddScheduleButton({
+	setCreateDate,
+}: {
+	setCreateDate: (date: Date | undefined) => void;
+}) {
 	return (
 		<button
 			onClick={() => {
-				setModalParam(new Date());
+				setCreateDate(new Date());
 			}}
 			className="bg-sky-600 border-2 border-slate-500 py-0.5 rounded-lg text-[min(6vw,22px)] text-gray-50 w-4/5 hover:bg-sky-700 hover:text-gray-200"
 		>
@@ -69,13 +70,13 @@ export function ModalCloseButton({ setModalParam }: { setModalParam: Function })
 	);
 }
 
-export function ModelActionButton({
+export function ModalActionButton({
 	action,
 	color,
 	text,
 }: {
 	action: Function;
-	color: string;
+	color: 'red' | 'blue' | 'gray';
 	text: string;
 }) {
 	return (
@@ -85,7 +86,11 @@ export function ModelActionButton({
 				e.stopPropagation();
 				action();
 			}}
-			className={`bg-${color}-700 px-3 py-1 rounded-lg text-gray-50`}
+			className={clsx('px-3 py-1 rounded-lg text-gray-50', {
+				'bg-red-700': color === 'red',
+				'bg-blue-700': color === 'blue',
+				'bg-gray-700': color === 'gray',
+			})}
 		>
 			{text}
 		</button>

@@ -1,24 +1,30 @@
-import { ModalBase } from '@/components/ui/calendar/modals/modal-base';
-import { Schedule } from '@/lib/calendar/types';
-import { ModalCloseButton, ModelActionButton } from '../buttons';
+import ModalBase from '@/components/ui/calendar/modals/modal-base';
+import { ModalActionButton } from '@/components/ui/calendar/buttons';
+import type { Schedule } from '@/lib/calendar/types';
 
-export function ScheduleDetailModal({
+export default function ScheduleDetailModal({
 	schedule,
 	setSchedule,
 	setDeleteTarget,
 	setEditTarget,
 }: {
 	schedule: Schedule | undefined;
-	setSchedule: Function;
-	setDeleteTarget: Function;
-	setEditTarget: Function;
+	setSchedule: (schedule: Schedule | undefined) => void;
+	setDeleteTarget: (schedule: Schedule | undefined) => void;
+	setEditTarget: (schedule: Schedule | undefined) => void;
 }) {
 	if (schedule) {
 		return (
 			<ModalBase setState={setSchedule}>
 				<div className="grid px-4">
 					<div className="text-right">
-						<ModalCloseButton setModalParam={setSchedule} />
+						<ModalActionButton
+							action={() => {
+								setSchedule(undefined);
+							}}
+							color={'gray'}
+							text={'閉じる'}
+						/>
 					</div>
 					<div className="grid text-gray-50">
 						<div className="px-4 py-2 text-4xl">{schedule.eventTitle}</div>
@@ -28,7 +34,7 @@ export function ScheduleDetailModal({
 						<div>{schedule.memo}</div>
 					</div>
 					<div className="gap-6 grid grid-cols-2 pt-3 text-gray-50">
-						<ModelActionButton
+						<ModalActionButton
 							action={() => {
 								setSchedule(undefined);
 								setDeleteTarget(schedule);
@@ -36,7 +42,7 @@ export function ScheduleDetailModal({
 							color="red"
 							text="削除"
 						/>
-						<ModelActionButton
+						<ModalActionButton
 							action={() => {
 								setSchedule(undefined);
 								setEditTarget(schedule);

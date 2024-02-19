@@ -35,7 +35,7 @@ export default function CalendarLine({
 				);
 			});
 
-			const schedule = schedules.filter((data) => {
+			const filteredSchedules = schedules.filter((data) => {
 				return (
 					data.eventDate.getFullYear() === day.getFullYear() &&
 					data.eventDate.getMonth() === day.getMonth() &&
@@ -43,7 +43,7 @@ export default function CalendarLine({
 				);
 			});
 
-			return { date: day, holiday: holiday, schedule: schedule };
+			return { date: day, holiday: holiday, schedule: filteredSchedules };
 		});
 
 		setWeekData(newWeekData);

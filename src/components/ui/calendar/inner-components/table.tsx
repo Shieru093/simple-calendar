@@ -32,7 +32,7 @@ export default function CalendarTable({
 		}
 
 		setWeekStarts(newWeekStarts);
-	}, [dateState]);
+	}, [dateState, schedules]);
 
 	return (
 		<div>

@@ -1,9 +1,7 @@
 'use server';
 
-import { RedirectType, permanentRedirect, redirect } from 'next/navigation';
 import { sql } from '@vercel/postgres';
 import { type FormSchemaType, formSchema } from '@/lib/calendar/schema';
-import { revalidatePath } from 'next/cache';
 
 export async function insertSchedule(formData: FormSchemaType) {
 	// フォームのデータを取出す
@@ -24,7 +22,6 @@ export async function insertSchedule(formData: FormSchemaType) {
 		// return { message: error };
 	}
 	return true;
-	// permanentRedirect('/calendar');
 }
 
 export async function updateSchedule(id: number, formData: FormSchemaType) {
@@ -56,9 +53,9 @@ export async function deleteSchedule(id: number) {
 			SET	is_delete = true
 			WHERE id = ${id}
 		`;
-		revalidatePath('/calendar');
 	} catch (error) {
 		console.error(error);
 		// return { message: error };
 	}
+	return true;
 }

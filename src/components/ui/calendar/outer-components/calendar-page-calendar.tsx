@@ -25,7 +25,7 @@ export default function CalendarPageCalendar({ dateState }: { dateState: Date })
 			setIsLoaded(true);
 		}
 		fetchCalendarData();
-	}, []);
+	}, [schedules]);
 
 	if (!isLoaded) {
 		return <CalendarTableSkeleton />;

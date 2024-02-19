@@ -1,19 +1,24 @@
 'use client';
 
-import { useContext } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { insertSchedule } from '@/lib/calendar/actions';
-import { ModalContext } from '@/components/page/calendar';
 import { type FormSchemaType, formSchema } from '@/lib/calendar/schema';
-import { ModalCloseButton } from '@/components/ui/calendar/buttons';
+import { ModalActionButton } from '@/components/ui/calendar/buttons';
+import { updateSchedule } from '@/lib/calendar/actions';
+import type { Schedule } from '@/lib/calendar/types';
 
 const labelStyle = 'pt-3 text-2xl text-left text-gray-50';
 
-export default function CreateScheduleForm({ paramDate }: { paramDate?: Date }) {
-	const setModalParam = useContext(ModalContext);
-
-	const selectDate: Date = paramDate ?? new Date();
+export default function EditScheduleForm({
+	schedule,
+	setEditTarget,
+	setSchedule,
+}: {
+	schedule: Schedule;
+	setEditTarget: Function;
+	setSchedule: Function;
+}) {
 	const {
 		register,
 		handleSubmit,
@@ -21,16 +26,22 @@ export default function CreateScheduleForm({ paramDate }: { paramDate?: Date }) 
 	} = useForm<FormSchemaType>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
-			eventTitle: '',
-			eventDate: `${selectDate.getFullYear().toString()}-${(selectDate.getMonth() + 1)
+			eventTitle: schedule.eventTitle,
+			eventDate: `${schedule.eventDate.getFullYear().toString()}-${(
+				schedule.eventDate.getMonth() + 1
+			)
 				.toString()
-				.padStart(2, '0')}-${selectDate.getDate().toString().padStart(2, '0')}`,
-			memo: '',
+				.padStart(2, '0')}-${schedule.eventDate.getDate().toString().padStart(2, '0')}`,
+			memo: schedule.memo,
 		},
 	});
+	const router = useRouter();
 
-	const onSubmit: SubmitHandler<FormSchemaType> = (data: FormSchemaType) => {
-		insertSchedule(data);
+	const onSubmit: SubmitHandler<FormSchemaType> = async (data: FormSchemaType) => {
+		if (await updateSchedule(schedule.id, data)) {
+			setEditTarget(undefined);
+			router.refresh();
+		}
 	};
 
 	return (
@@ -40,9 +51,17 @@ export default function CreateScheduleForm({ paramDate }: { paramDate?: Date }) 
 		>
 			<div className="px-3  grid">
 				<div className="text-right">
-					<ModalCloseButton setModalParam={setModalParam} />
+					{/* <ModalCloseButton setModalParam={setSchedule} /> */}
+					<ModalActionButton
+						action={() => {
+							setEditTarget(undefined);
+							setSchedule(schedule);
+						}}
+						color={'gray'}
+						text={'戻る'}
+					/>
 				</div>
-				<div className="pb-4 pt-2 text-4xl text-white">予定の追加</div>
+				<div className="pb-4 pt-2 text-4xl text-white">予定の編集</div>
 				<section className="grid">
 					<label
 						htmlFor="title"
@@ -52,6 +71,7 @@ export default function CreateScheduleForm({ paramDate }: { paramDate?: Date }) 
 					</label>
 					<input
 						type="text"
+						id="title"
 						{...register('eventTitle')}
 						placeholder="タイトル"
 					/>
@@ -66,6 +86,7 @@ export default function CreateScheduleForm({ paramDate }: { paramDate?: Date }) 
 					</label>
 					<input
 						type="date"
+						id="eventDate"
 						{...register('eventDate')}
 					/>
 					{errors.eventDate && <p>{errors.eventDate.message}</p>}
@@ -78,6 +99,7 @@ export default function CreateScheduleForm({ paramDate }: { paramDate?: Date }) 
 						メモ
 					</label>
 					<textarea
+						id="memo"
 						rows={4}
 						cols={30}
 						{...register('memo')}
@@ -90,7 +112,7 @@ export default function CreateScheduleForm({ paramDate }: { paramDate?: Date }) 
 						type="submit"
 						className="bg-green-600 px-8 rounded-lg text-gray-50"
 					>
-						追加
+						上書き保存
 					</button>
 				</div>
 			</div>

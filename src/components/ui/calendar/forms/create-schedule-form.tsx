@@ -1,19 +1,21 @@
 'use client';
 
-import { useContext } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { insertSchedule } from '@/lib/calendar/actions';
-import { ModalContext } from '@/components/page/calendar';
 import { type FormSchemaType, formSchema } from '@/lib/calendar/schema';
-import { ModalCloseButton } from '../buttons';
+import { ModalActionButton } from '@/components/ui/calendar/buttons';
 
 const labelStyle = 'pt-3 text-2xl text-left text-gray-50';
 
-export default function CreateScheduleForm({ paramDate }: { paramDate?: Date }) {
-	const setModalParam = useContext(ModalContext);
-
-	const selectDate: Date = paramDate ?? new Date();
+export default function CreateScheduleForm({
+	createDate,
+	setCreateDate,
+}: {
+	createDate: Date;
+	setCreateDate: (date: Date | undefined) => void;
+}) {
 	const {
 		register,
 		handleSubmit,
@@ -22,15 +24,20 @@ export default function CreateScheduleForm({ paramDate }: { paramDate?: Date }) 
 		resolver: zodResolver(formSchema),
 		defaultValues: {
 			eventTitle: '',
-			eventDate: `${selectDate.getFullYear().toString()}-${(selectDate.getMonth() + 1)
+			eventDate: `${createDate.getFullYear().toString()}-${(createDate.getMonth() + 1)
 				.toString()
-				.padStart(2, '0')}-${selectDate.getDate().toString().padStart(2, '0')}`,
+				.padStart(2, '0')}-${createDate.getDate().toString().padStart(2, '0')}`,
 			memo: '',
 		},
 	});
 
-	const onSubmit: SubmitHandler<FormSchemaType> = (data: FormSchemaType) => {
-		insertSchedule(data);
+	const router = useRouter();
+
+	const onSubmit: SubmitHandler<FormSchemaType> = async (data: FormSchemaType) => {
+		if (await insertSchedule(data)) {
+			setCreateDate(undefined);
+			router.refresh();
+		}
 	};
 
 	return (
@@ -40,7 +47,13 @@ export default function CreateScheduleForm({ paramDate }: { paramDate?: Date }) 
 		>
 			<div className="px-3  grid">
 				<div className="text-right">
-					<ModalCloseButton setModalParam={setModalParam} />
+					<ModalActionButton
+						action={() => {
+							setCreateDate(undefined);
+						}}
+						color={'gray'}
+						text={'閉じる'}
+					/>
 				</div>
 				<div className="pb-4 pt-2 text-4xl text-white">予定の追加</div>
 				<section className="grid">

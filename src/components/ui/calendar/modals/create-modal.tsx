@@ -1,15 +1,20 @@
-import { ModalContext } from '@/components/page/calendar';
 import CreateScheduleForm from '@/components/ui/calendar/forms/create-schedule-form';
-import { ModalBase } from '@/components/ui/calendar/modals/modal-base';
-import { useContext } from 'react';
+import ModalBase from '@/components/ui/calendar/modals/modal-base';
 
-export function CreateModal({ param }: { param: Date | undefined }) {
-	const setParam = useContext(ModalContext);
-
-	if (param) {
+export default function CreateModal({
+	createDate,
+	setCreateDate,
+}: {
+	createDate: Date | undefined;
+	setCreateDate: (date: Date | undefined) => void;
+}) {
+	if (createDate) {
 		return (
-			<ModalBase setState={setParam}>
-				<CreateScheduleForm paramDate={param} />
+			<ModalBase setState={setCreateDate}>
+				<CreateScheduleForm
+					createDate={createDate}
+					setCreateDate={setCreateDate}
+				/>
 			</ModalBase>
 		);
 	} else {

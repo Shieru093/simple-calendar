@@ -9,7 +9,7 @@ export default function CalendarHeader({
 	weekOrMonth,
 }: {
 	dateState: Date;
-	setDateState: Function;
+	setDateState: (date: Date) => void;
 	weekOrMonth: WeekOrMonth;
 }) {
 	const toggles: PrevOrNext[] = ['prev', 'next'];
