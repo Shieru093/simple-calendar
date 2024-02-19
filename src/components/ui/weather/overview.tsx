@@ -23,11 +23,15 @@ export default function Overview() {
 		return <div>loading</div>;
 	}
 	return (
-		<div className="flex flex-col items-center justify-center pt-4 text-gray-50">
-			<div className="">{weather?.cityName}</div>
-			<div className="text-xl">{weather?.main}</div>
-			<div>{weather?.temp}℃</div>
-			<div>{weather?.humidity}%</div>
+		<div className="flex flex-col items-center justify-center pt-8 text-gray-50">
+			<div className="bg-gray-600 px-8 py-2 rounded">
+				<div className="bg-gray-800 py-1 text-lg text-center rounded">{weather?.cityName}</div>
+				<div className="pt-3 text-3xl text-center">{weather?.main}</div>
+				<div className="gap-2 grid grid-cols-2 pb-3 text-center">
+					<div>{weather?.temp}℃</div>
+					<div>{weather?.humidity}%</div>
+				</div>
+			</div>
 		</div>
 	);
 }
