@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { fetchWeather } from '@/lib/calendar/fetch-api';
 import type { Weather } from '@/lib/weather/types';
+import { WeatherOverviewSkelton } from '@/components/ui/skeletons';
 
 export default function Overview() {
 	const [weather, setWeather] = useState<Weather>();
@@ -20,7 +21,7 @@ export default function Overview() {
 	}, []);
 
 	if (!isLoaded) {
-		return <div>loading</div>;
+		return <WeatherOverviewSkelton />;
 	}
 	return (
 		<div className="flex flex-col items-center justify-center pt-8 text-gray-50">
